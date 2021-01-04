@@ -1,72 +1,42 @@
+import Moto from "./clases/moto.js";
+import Automovil from "./clases/automovil.js";
+
 (function () {
-  const toThousand = n => {
-    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  const decimalComaMilPunto = numero => {
+    return numero
+      .toString()
+      .replace(".", ",")
+      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   };
 
-  class Vehiculo {
-    constructor(marca, modelo, precio) {
-      this.marca = marca;
-      this.modelo = modelo;
-      this.precio = precio;
-    }
-  }
-
-  class Moto extends Vehiculo {
-    constructor(marca, modelo, precio, cilindrada) {
-      super(marca, modelo, precio);
-      this.cilindrada = cilindrada;
-    }
-
-    describirMoto() {
-      console.log(
-        `Marca: ${this.marca} // Modelo: ${
-          this.modelo
-        } // ${`Cilindradas: ${this.cilindrada}`} // Precio: $${toThousand(
-          this.precio.toFixed(2)
-        )}`
-      );
-    }
-  }
-
-  class Automovil extends Vehiculo {
-    constructor(marca, modelo, precio, puertas) {
-      super(marca, modelo, precio);
-      this.puertas = puertas;
-    }
-
-    describirAutomovil() {
-      console.log(
-        `Marca: ${this.marca} // Modelo: ${
-          this.modelo
-        } // ${`Puertas: ${this.puertas}`} // Precio: $${toThousand(
-          this.precio.toFixed(2)
-        )}`
-      );
-    }
-  }
-
   class VehiculosEnLista {
-    static crearLista(...vehiculos) {
+    static crearListaDeVehiculos(...vehiculos) {
       const lista = [...vehiculos];
       return lista;
     }
 
-    static vehiculosEnVenta() {
-      const moto1 = new Moto("Honda", "Titan", 60000, "125cc");
-      const auto1 = new Automovil("Peugeot", "206", 200000, 4);
-      const moto2 = new Moto("Yamaha", "YBR", 80500, "160cc");
-      const auto2 = new Automovil("Peugeot", "208", 250000, 5);
-      return this.crearLista(auto1, moto1, auto2, moto2);
+    static crearVehiculosEnLista() {
+      const HONDATITAN = new Moto("Honda", "Titan", 60000, "125cc");
+      const PEUGEOT206 = new Automovil("Peugeot", "206", 200000, 4);
+      const YAMAHAYBR = new Moto("Yamaha", "YBR", 80500, "160cc");
+      const PEUGEOT208 = new Automovil("Peugeot", "208", 250000, 5);
+
+      return this.crearListaDeVehiculos(
+        PEUGEOT206,
+        HONDATITAN,
+        PEUGEOT208,
+        YAMAHAYBR
+      );
     }
 
     static mostrarListadoDeVehiculos(listaDeVehiculos) {
       listaDeVehiculos.map(vehiculos => {
-        const { marca, modelo, precio, cilindrada, puertas } = vehiculos;
+        const { marca, modelo, precio, puertas, cilindrada } = vehiculos;
 
         console.log(
           `Marca: ${marca} // Modelo: ${modelo} // ${
             puertas ? `Puertas: ${puertas}` : `Cilindradas: ${cilindrada}`
-          } // Precio: $${toThousand(precio.toFixed(2))}`
+          } // Precio: $${decimalComaMilPunto(precio.toFixed(2))}`
         );
       });
     }
@@ -101,7 +71,9 @@
       console.log(
         `Vehículo que contiene en el modelo la letra ‘Y’ ${
           vehiculoConY.marca
-        } ${vehiculoConY.modelo} $${toThousand(vehiculoConY.precio.toFixed(2))}`
+        } ${vehiculoConY.modelo} $${decimalComaMilPunto(
+          vehiculoConY.precio.toFixed(2)
+        )}`
       );
     }
 
@@ -112,19 +84,19 @@
 
       console.log("Vehículos ordenados por precio de mayor a menor:");
       vehiculosOrdenados.map(vehiculo => {
-        console.log(` ${vehiculo.marca} ${vehiculo.modelo}`);
+        console.log(`${vehiculo.marca} ${vehiculo.modelo}`);
       });
     }
 
     static mostrarInformacionEnPantalla() {
-      const listaDeAutos = VehiculosEnLista.vehiculosEnVenta();
-      VehiculosEnLista.mostrarListadoDeVehiculos(listaDeAutos);
+      const listaDeAutosYMotos = VehiculosEnLista.crearVehiculosEnLista();
+      VehiculosEnLista.mostrarListadoDeVehiculos(listaDeAutosYMotos);
       console.log("=============================");
-      VehiculosEnLista.vehiculoMasCaro(listaDeAutos);
-      VehiculosEnLista.vehiculoMasBarato(listaDeAutos);
-      VehiculosEnLista.vehiculoQueContieneY(listaDeAutos);
+      VehiculosEnLista.vehiculoMasCaro(listaDeAutosYMotos);
+      VehiculosEnLista.vehiculoMasBarato(listaDeAutosYMotos);
+      VehiculosEnLista.vehiculoQueContieneY(listaDeAutosYMotos);
       console.log("=============================");
-      VehiculosEnLista.vehiculosOrdenadosPorPrecio(listaDeAutos);
+      VehiculosEnLista.vehiculosOrdenadosPorPrecio(listaDeAutosYMotos);
     }
   }
 
