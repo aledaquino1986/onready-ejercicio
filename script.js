@@ -1,32 +1,12 @@
 import Moto from "./clases/moto.js";
 import Automovil from "./clases/automovil.js";
+import formatearDecimalYMiles from "./utilidades/formatearNumeros.js";
 
 (function () {
-  const decimalComaMilPunto = numero => {
-    return numero
-      .toString()
-      .replace(".", ",")
-      .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
-  };
-
   class VehiculosEnLista {
     static crearListaDeVehiculos(...vehiculos) {
       const lista = [...vehiculos];
       return lista;
-    }
-
-    static crearVehiculosEnLista() {
-      const HONDATITAN = new Moto("Honda", "Titan", 60000, "125cc");
-      const PEUGEOT206 = new Automovil("Peugeot", "206", 200000, 4);
-      const YAMAHAYBR = new Moto("Yamaha", "YBR", 80500, "160cc");
-      const PEUGEOT208 = new Automovil("Peugeot", "208", 250000, 5);
-
-      return this.crearListaDeVehiculos(
-        PEUGEOT206,
-        HONDATITAN,
-        PEUGEOT208,
-        YAMAHAYBR
-      );
     }
 
     static mostrarListadoDeVehiculos(listaDeVehiculos) {
@@ -36,7 +16,7 @@ import Automovil from "./clases/automovil.js";
         console.log(
           `Marca: ${marca} // Modelo: ${modelo} // ${
             puertas ? `Puertas: ${puertas}` : `Cilindradas: ${cilindrada}`
-          } // Precio: $${decimalComaMilPunto(precio.toFixed(2))}`
+          } // Precio: $${formatearDecimalYMiles(precio.toFixed(2))}`
         );
       });
     }
@@ -71,7 +51,7 @@ import Automovil from "./clases/automovil.js";
       console.log(
         `Vehículo que contiene en el modelo la letra ‘Y’ ${
           vehiculoConY.marca
-        } ${vehiculoConY.modelo} $${decimalComaMilPunto(
+        } ${vehiculoConY.modelo} $${formatearDecimalYMiles(
           vehiculoConY.precio.toFixed(2)
         )}`
       );
@@ -88,8 +68,7 @@ import Automovil from "./clases/automovil.js";
       });
     }
 
-    static mostrarInformacionEnPantalla() {
-      const listaDeAutosYMotos = VehiculosEnLista.crearVehiculosEnLista();
+    static mostrarInformacionEnPantalla(listaDeAutosYMotos) {
       VehiculosEnLista.mostrarListadoDeVehiculos(listaDeAutosYMotos);
       console.log("=============================");
       VehiculosEnLista.vehiculoMasCaro(listaDeAutosYMotos);
@@ -100,5 +79,17 @@ import Automovil from "./clases/automovil.js";
     }
   }
 
-  VehiculosEnLista.mostrarInformacionEnPantalla();
+  const HONDATITAN = new Moto("Honda", "Titan", 60000, "125cc");
+  const PEUGEOT206 = new Automovil("Peugeot", "206", 200000, 4);
+  const YAMAHAYBR = new Moto("Yamaha", "YBR", 80500, "160cc");
+  const PEUGEOT208 = new Automovil("Peugeot", "208", 250000, 5);
+
+  const listaDeAutosYMotos = VehiculosEnLista.crearListaDeVehiculos(
+    HONDATITAN,
+    PEUGEOT206,
+    YAMAHAYBR,
+    PEUGEOT208
+  );
+
+  VehiculosEnLista.mostrarInformacionEnPantalla(listaDeAutosYMotos);
 })();
