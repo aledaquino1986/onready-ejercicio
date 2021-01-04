@@ -79,16 +79,16 @@ import formatearDecimalYMiles from "./utilidades/formatearNumeros.js";
     }
   }
 
-  const HONDATITAN = new Moto("Honda", "Titan", 60000, "125cc");
-  const PEUGEOT206 = new Automovil("Peugeot", "206", 200000, 4);
-  const YAMAHAYBR = new Moto("Yamaha", "YBR", 80500, "160cc");
-  const PEUGEOT208 = new Automovil("Peugeot", "208", 250000, 5);
+  const hondaTitan = new Moto("Honda", "Titan", 60000, "125cc");
+  const peugeot206 = new Automovil("Peugeot", "206", 200000, 4);
+  const yamahaYBR = new Moto("Yamaha", "YBR", 80500, "160cc");
+  const peugeot208 = new Automovil("Peugeot", "208", 250000, 5);
 
   const listaDeAutosYMotos = VehiculosEnLista.crearListaDeVehiculos(
-    HONDATITAN,
-    PEUGEOT206,
-    YAMAHAYBR,
-    PEUGEOT208
+    peugeot206,
+    hondaTitan,
+    peugeot208,
+    yamahaYBR
   );
 
   VehiculosEnLista.mostrarInformacionEnPantalla(listaDeAutosYMotos);
